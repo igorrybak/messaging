@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-      "target": "es2017",
+      "target": "ES2018",
       "module": "commonjs",
       "strict": true,
       "jsx": "react",
@@ -15,7 +15,7 @@
       "noFallthroughCasesInSwitch": true,
       "pretty": true,
       "allowSyntheticDefaultImports": true,
-      "lib": ["es2017", "dom"],
+      "lib": ["ES2018", "DOM"],
       "sourceMap": true,
       "outDir": "./dist",
       "baseUrl": "src",
