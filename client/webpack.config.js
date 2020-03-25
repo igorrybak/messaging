@@ -1,19 +1,20 @@
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 const path = require("path");
 
-require("dotenv").config({ path: "./.env" });
+const environment = "development";
 
 module.exports = {
     entry: {
         bundle: "./src/index.tsx",
     },
-    
-    mode: process.env.NODE_ENV || "development",
+
+    mode: environment,
 
     output: {
-        publicPath: "/dist",
+        publicPath: "/",
         filename: "main.js",
-        path: path.join(process.cwd(), "/dist"),
+        path: path.join(process.cwd(), "../server/public"),
     },
 
     devtool: "source-map",
@@ -52,6 +53,13 @@ module.exports = {
             },
         ],
     },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: "templates/index.ejs",
+            minify: environment,
+            filename: "index.html",
+        }),
+    ],
     devServer: {
         watchOptions: {
             ignored: /node_modules/,
