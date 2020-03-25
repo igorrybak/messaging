@@ -1,2 +1,5 @@
-dist
 node_modules
+server/public
+server/dist
+client/dist
+server/.env

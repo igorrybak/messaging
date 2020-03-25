@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "target": "ES2018",
+        "module": "commonjs",
+        "strict": true,
+        "strictNullChecks": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "declaration": false,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "pretty": true,
+        "allowSyntheticDefaultImports": true,
+        "lib": ["ES2018"],
+        "sourceMap": true,
+        "outDir": "./dist",
+        "baseUrl": "src",
+        "rootDirs": ["src"],
+        "paths": {
+            "@/*": ["./*"]
+        }
+    },
+    "include": ["src/**/*.ts", "src/**/*.tsx"],
+    "exclude": ["node_modules", "dist"]
+}
