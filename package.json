@@ -7,7 +7,7 @@
         "build-client": "cd client && webpack",
         "build-server": "cd server && rm -rf dist && tsc",
         "run-server": "cd server && node dist/main",
-        "debug-server": "cd server && ts-node-dev src/main",
+        "debug-server": "cd server && ts-node-dev --inspect --respawn --transpileOnly src/main",
         "dev-client": "cd client && webpack-dev-server --port 8081 --watch-poll --compress --host 127.0.0.1 --history-api-fallback"
     },
     "author": "Igor Rybak",
