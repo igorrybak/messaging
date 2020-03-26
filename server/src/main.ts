@@ -4,6 +4,7 @@ import * as express from "express";
 import { PORT } from "./config";
 import { MongoDB } from "./db";
 import { router } from "./routes";
+import * as cors from "cors";
 
 config();
 
@@ -14,6 +15,7 @@ config();
 
         const app = express();
 
+        app.use(cors());
         app.use(express.static(process.cwd() + "/public"));
         app.use(bodyParser.json());
 
