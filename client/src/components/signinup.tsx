@@ -14,7 +14,7 @@ export const SignUpSignIn = (props: { action: string }) => {
         <form noValidate autoComplete="off" onSubmit={requestToApi}>
             <TextField
                 required
-                id="userName"
+                id="username"
                 label="Username"
                 variant="outlined"
                 onChange={e => setUsername(e.target.value)}
@@ -40,7 +40,7 @@ export const SignUpSignIn = (props: { action: string }) => {
 
         try {
             if (username && password) {
-                const userData = { userName: username, password, createUser };
+                const userData = { username, password, createUser };
                 console.log("Sending body: ", userData);
 
                 const resp = await axios.post(apiUrl + "/user", userData);

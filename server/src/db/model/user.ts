@@ -1,11 +1,12 @@
-import { Message, User } from "@/../../types";
+import { User } from "@/../../types";
 import * as mongoose from "mongoose";
 import { db } from "..";
 
 interface IUser extends mongoose.Document, User {}
 
-const messageSchema = new mongoose.Schema({
-    name: String,
+const userSchema = new mongoose.Schema({
+    username: String,
+    password: String,
 });
 
-export const UserModel = db.mongoDB.model<IUser>("messages", messageSchema);
+export const UserModel = db.mongoDB.model<IUser>("users", userSchema);

@@ -1,11 +1,12 @@
 import * as bodyParser from "body-parser";
 import * as cors from "cors";
-import { config } from "dotenv";
 import * as express from "express";
 import { PORT, HOST_NAME } from "./config";
-import { router } from "./routes";
+import { config } from "dotenv";
 
 config();
+
+import { router } from "./routes";
 
 (async () => {
     try {
