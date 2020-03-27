@@ -7,7 +7,7 @@ import { Messages } from "./messages";
 
 export const SignUpSignIn = (props: { action: string }) => {
     const buttonText = props.action === "signIn" ? "Sign in" : "Create account";
-    const [userName, setUserName] = React.useState("");
+    const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
 
     return (
@@ -17,7 +17,7 @@ export const SignUpSignIn = (props: { action: string }) => {
                 id="userName"
                 label="Username"
                 variant="outlined"
-                onChange={e => setUserName(e.target.value)}
+                onChange={e => setUsername(e.target.value)}
             />
             <TextField
                 required
@@ -39,15 +39,15 @@ export const SignUpSignIn = (props: { action: string }) => {
         event.preventDefault();
 
         try {
-            if (userName && password) {
-                const userData = { userName, password, createUser };
+            if (username && password) {
+                const userData = { userName: username, password, createUser };
                 console.log("Sending body: ", userData);
 
                 const resp = await axios.post(apiUrl + "/user", userData);
                 console.log("Response: ", resp);
 
                 if (resp.status == 200) {
-                    render(<Messages action={resp.data} />, document.getElementById("app"));
+                    render(<Messages userData={{ username, password }} />, document.getElementById("app"));
                 } else {
                     throw new Error("Respone status: " + resp.status);
                 }

@@ -1,18 +1,14 @@
 import * as bodyParser from "body-parser";
+import * as cors from "cors";
 import { config } from "dotenv";
 import * as express from "express";
-import { PORT } from "./config";
-import { MongoDB } from "./db";
+import { PORT, HOST_NAME } from "./config";
 import { router } from "./routes";
-import * as cors from "cors";
 
 config();
 
 (async () => {
     try {
-        const db = new MongoDB();
-        await db.init();
-
         const app = express();
 
         app.use(cors());
@@ -22,7 +18,7 @@ config();
         app.use("/api", router);
 
         app.listen(PORT, () => {
-            console.info(`Listening on http://127.0.0.1:${PORT}`);
+            console.info(`Listening on ${HOST_NAME}:${PORT}`);
         });
     } catch (error) {
         console.error(error);

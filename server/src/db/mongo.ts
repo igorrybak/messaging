@@ -6,7 +6,7 @@ import { DB_NAME } from "../config";
  */
 export class MongoDB {
     private readonly uri = process.env.MONGO_URI;
-    private readonly mongoDB: mongoose.Mongoose;
+    public mongoDB: mongoose.Mongoose;
 
     /**
      * Mongo DB class based on Mongoose
@@ -14,17 +14,20 @@ export class MongoDB {
     public constructor() {
         this.mongoDB = new mongoose.Mongoose();
         if (!this.uri) throw new Error("Mongo URI is not defined.");
+        
+        this.connect();
     }
 
     /**
      * Init MongoDB connection.
      */
-    public async init() {
+    private connect() {
         try {
-            await this.mongoDB.connect(this.uri! + DB_NAME, {
+            this.mongoDB.connect(this.uri! + DB_NAME, {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
             });
+
             console.debug("MongoDB connected.");
         } catch (error) {
             throw error;
