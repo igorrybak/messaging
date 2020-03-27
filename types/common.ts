@@ -1,8 +1,8 @@
 export type Message = {
     _id: any;
-    userId: number;
-    from: string;
-    text: string;
+    username: string;
+    sender: string;
+    message: string;
 };
 
 export type User = {

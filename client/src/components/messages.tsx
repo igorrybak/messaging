@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import * as React from "react";
 import { Message, User } from "../../../types";
+import { NewMessage } from "./sendmessage";
 
 const useStyles = makeStyles({
     table: {
@@ -11,9 +12,11 @@ const useStyles = makeStyles({
     },
 });
 
-export const Messages = (props: { userData: User }) => {
+export function Messages(props: { userData: User }) {
     const classes = useStyles();
+
     const [messages, setMessages] = React.useState<Message[]>([]);
+    const [openNewMessage, setOpenNewMessage] = React.useState(false);
 
     React.useEffect(() => {
         async function getMessages() {
@@ -29,10 +32,13 @@ export const Messages = (props: { userData: User }) => {
         getMessages();
     }, []);
 
-    function createNewMessage() {}
-
+    function createNewMessage() {
+        setOpenNewMessage(true);
+    }
+ 
     return (
         <React.Fragment>
+            <NewMessage open={openNewMessage} userId={props.userData.username} />
             <Button variant="contained" color="primary" onClick={createNewMessage}>
                 New message
             </Button>
@@ -45,10 +51,10 @@ export const Messages = (props: { userData: User }) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {messages.map(message => (
-                            <TableRow key={message._id}>
-                                <TableCell align="center">{message.from}</TableCell>
-                                <TableCell align="center">{message.text}</TableCell>
+                        {messages.map(el => (
+                            <TableRow key={el._id}>
+                                <TableCell align="center">{el.sender}</TableCell>
+                                <TableCell align="center">{el.message}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
@@ -56,4 +62,4 @@ export const Messages = (props: { userData: User }) => {
             </TableContainer>
         </React.Fragment>
     );
-};
+}

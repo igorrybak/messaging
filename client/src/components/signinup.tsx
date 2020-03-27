@@ -5,13 +5,13 @@ import * as React from "react";
 import { render } from "react-dom";
 import { Messages } from "./messages";
 
-export const SignUpSignIn = (props: { action: string }) => {
+export function SignUpSignIn(props: { action: string }) {
     const buttonText = props.action === "signIn" ? "Sign in" : "Create account";
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
 
     return (
-        <form noValidate autoComplete="off" onSubmit={requestToApi}>
+        <form noValidate autoComplete="off" onSubmit={sendUserData}>
             <TextField
                 required
                 id="username"
@@ -33,7 +33,7 @@ export const SignUpSignIn = (props: { action: string }) => {
         </form>
     );
 
-    async function requestToApi(event: React.FormEvent<HTMLFormElement>) {
+    async function sendUserData(event: React.FormEvent<HTMLFormElement>) {
         const createUser = props.action === "signIn" ? false : true;
 
         event.preventDefault();
@@ -56,4 +56,4 @@ export const SignUpSignIn = (props: { action: string }) => {
             console.log("Error is occured:\n", error);
         }
     }
-};
+}
