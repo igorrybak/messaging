@@ -6,10 +6,10 @@ import Button from "@material-ui/core/Button";
 export const App = () => {
     return (
         <React.Fragment>
-            <Button variant="contained" color="primary" onClick={() => logInSignUp("sign-in")}>
+            <Button key="signIn" variant="contained" color="primary" onClick={() => logInSignUp("signIn")}>
                 Sign in
             </Button>
-            <Button variant="contained" color="primary" onClick={() => logInSignUp("create-account")}>
+            <Button key="createAccount" variant="contained" color="primary" onClick={() => logInSignUp("createAccount")}>
                 Create account
             </Button>
         </React.Fragment>

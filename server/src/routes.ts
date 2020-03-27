@@ -1,9 +1,13 @@
 import * as express from "express";
-import * as bodyParser from "body-parser";
 
 export const router = express.Router();
 
+router.post("/user", (req, resp) => {
+    console.debug("Received body on user: ", req.body);
+    resp.send().status(200);
+});
+
 router.get("/messages", (req, resp) => {
-    console.debug("Received data: ", req.query);
-    resp.send("Hello API!");
+    console.debug("Received query on messages: ", req.query);
+    resp.send().status(200);
 });

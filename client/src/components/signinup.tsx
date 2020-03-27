@@ -1,24 +1,29 @@
-import * as React from "react";
-import { TextField, Button } from "@material-ui/core";
-import axios from "axios";
 import { apiUrl } from "@/config";
+import { Button, TextField } from "@material-ui/core";
+import axios from "axios";
+import * as React from "react";
+import { render } from "react-dom";
+import { Messages } from "./messages";
 
 export const SignUpSignIn = (props: { action: string }) => {
-    const buttonText = props.action === "sign-in" ? "Sign in" : "Create account";
+    const buttonText = props.action === "signIn" ? "Sign in" : "Create account";
     const [userName, setUserName] = React.useState("");
     const [password, setPassword] = React.useState("");
 
     return (
-        <form noValidate autoComplete="off" onSubmit={requestToServer}>
+        <form noValidate autoComplete="off" onSubmit={requestToApi}>
             <TextField
-                id="standard-basic"
+                required
+                id="userName"
                 label="Username"
                 variant="outlined"
                 onChange={e => setUserName(e.target.value)}
             />
             <TextField
-                id="standard-basic"
+                required
+                id="password"
                 label="Password"
+                type="password"
                 variant="outlined"
                 onChange={e => setPassword(e.target.value)}
             />
@@ -28,22 +33,27 @@ export const SignUpSignIn = (props: { action: string }) => {
         </form>
     );
 
-    async function requestToServer(event: React.FormEvent<HTMLFormElement>) {
-        const createUser = props.action === "sign-in" ? false : true;
-        const params = { userName, password, createUser };
-        
+    async function requestToApi(event: React.FormEvent<HTMLFormElement>) {
+        const createUser = props.action === "signIn" ? false : true;
+
         event.preventDefault();
 
         try {
-            const resp = await axios.get(apiUrl + "/messages", {
-                params,
-            });
+            if (userName && password) {
+                const userData = { userName, password, createUser };
+                console.log("Sending body: ", userData);
 
-            console.log("Response: ", resp.status);
+                const resp = await axios.post(apiUrl + "/user", userData);
+                console.log("Response: ", resp);
+
+                if (resp.status == 200) {
+                    render(<Messages action={resp.data} />, document.getElementById("app"));
+                } else {
+                    throw new Error("Respone status: " + resp.status);
+                }
+            }
         } catch (error) {
             console.log("Error is occured:\n", error);
         }
-
-        console.log("Sending params: ", params);
     }
 };
