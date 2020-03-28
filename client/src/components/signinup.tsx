@@ -40,10 +40,16 @@ export function SignUpSignIn(props: { action: string }) {
 
         try {
             if (username && password) {
-                const userData = { username, password, createUser };
-                console.log("Sending body: ", userData);
+                const authData = { username, password };
+                console.log("Sending body: ", authData);
 
-                const resp = await axios.post(apiUrl + "/user", userData);
+                let resp;
+                if (createUser) {
+                    resp = await axios.post(apiUrl + "/user", authData);
+                } else {
+                    resp = await axios.get(apiUrl + "/user", { params: authData });
+                }
+
                 console.log("Response: ", resp);
 
                 if (resp.status == 200) {
