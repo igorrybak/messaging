@@ -14,23 +14,27 @@ router.post("/user", async (req, resp) => {
 
             const user = await userModel.save();
             console.log("User created: ", user);
+
+            resp.status(200);
         } else {
             const user = await UserModel.find({
                 username: req.body.username,
                 password: req.body.password,
             });
+            console.debug("User data: ", user);
 
             if (user.length) {
-                // TODO
+                resp.status(200);
             } else {
-                // TODO
+                resp.status(401);
+                resp.statusMessage = "Not authorized";
             }
         }
-
-        resp.send().status(200);
     } catch (error) {
-        // TODO
+        resp.status(500);
     }
+
+    resp.send();
 });
 
 router.get("/messages", async (req, resp) => {

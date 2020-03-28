@@ -9,7 +9,7 @@ export const App = () => {
             <Button key="signIn" variant="contained" color="primary" onClick={() => logInSignUp("signIn")}>
                 Sign in
             </Button>
-            <Button key="createAccount" variant="contained" color="primary" onClick={() => logInSignUp("createAccount")}>
+            <Button key="createAccount" variant="contained" color="secondary" onClick={() => logInSignUp("createAccount")}>
                 Create account
             </Button>
         </React.Fragment>

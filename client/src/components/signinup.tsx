@@ -47,13 +47,13 @@ export function SignUpSignIn(props: { action: string }) {
                 console.log("Response: ", resp);
 
                 if (resp.status == 200) {
-                    render(<Messages userData={{ username, password }} />, document.getElementById("app"));
+                    render(<Messages username={username} />, document.getElementById("app"));
                 } else {
                     throw new Error("Respone status: " + resp.status);
                 }
             }
         } catch (error) {
-            console.log("Error is occured:\n", error);
+            console.log(error);
         }
     }
 }

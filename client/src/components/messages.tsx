@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     },
 });
 
-export function Messages(props: { userData: User }) {
+export function Messages(props: { username: string }) {
     const classes = useStyles();
 
     const [messages, setMessages] = React.useState<Message[]>([]);
@@ -22,7 +22,7 @@ export function Messages(props: { userData: User }) {
         async function getMessages() {
             try {
                 const response = await axios.get<Message[]>(apiUrl + "/messages", {
-                    params: { username: props.userData.username },
+                    params: { recipient: props.username },
                 });
                 setMessages(response.data.map(item => item));
             } catch (error) {
@@ -35,10 +35,10 @@ export function Messages(props: { userData: User }) {
     function createNewMessage() {
         setOpenNewMessage(true);
     }
- 
+
     return (
         <React.Fragment>
-            <NewMessage open={openNewMessage} username={props.userData.username} />
+            <NewMessage open={openNewMessage} username={props.username} />
             <Button variant="contained" color="primary" onClick={createNewMessage}>
                 New message
             </Button>
