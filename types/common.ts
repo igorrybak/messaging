@@ -1,6 +1,6 @@
 export type Message = {
     _id: any;
-    username: string;
+    recipient: string;
     sender: string;
     message: string;
 };

@@ -38,7 +38,7 @@ export function Messages(props: { userData: User }) {
  
     return (
         <React.Fragment>
-            <NewMessage open={openNewMessage} userId={props.userData.username} />
+            <NewMessage open={openNewMessage} username={props.userData.username} />
             <Button variant="contained" color="primary" onClick={createNewMessage}>
                 New message
             </Button>

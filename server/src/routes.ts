@@ -47,8 +47,8 @@ router.post("/message", async (req, resp) => {
     console.debug("Received body on /message: ", req.body);
     try {
         const messageModel = new MessageModel({
-            username: req.body.username,
             recipient: req.body.recipient,
+            sender: req.body.sender,
             message: req.body.message,
         });
         const user = await messageModel.save();

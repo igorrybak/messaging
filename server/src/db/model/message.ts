@@ -5,7 +5,7 @@ import { db } from "..";
 interface IMessage extends mongoose.Document, Message {}
 
 const messageSchema = new mongoose.Schema({
-    username: String,
+    recipient: String,
     sender: String,
     message: String,
 });

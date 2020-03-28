@@ -5,7 +5,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import axios from "axios";
 import * as React from "react";
 
-export function NewMessage(props: { open: boolean; userId: string }) {
+export function NewMessage(props: { open: boolean; username: string }) {
     const [message, setMessage] = React.useState("");
     const [recipient, setRecipient] = React.useState("");
 
@@ -15,8 +15,8 @@ export function NewMessage(props: { open: boolean; userId: string }) {
         try {
             const resp = await axios.post(apiUrl + "/message", {
                 recipient,
+                sender: props.username,
                 message,
-                userId: props.userId,
             });
             console.log("Response: ", resp);
 
