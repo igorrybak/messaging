@@ -3,7 +3,7 @@ import * as cors from "cors";
 import * as express from "express";
 import { PORT, HOST_NAME } from "./config";
 import { config } from "dotenv";
-// import * as cookieParser from "cookie-parser";
+import * as cookieParser from "cookie-parser";
 import * as morgan from "morgan";
 
 config();
@@ -14,11 +14,11 @@ import { router } from "./routes";
     try {
         const app = express();
 
+        app.use(cookieParser());
         app.use(morgan("dev"));
         app.use(cors());
         app.use(express.static(process.cwd() + "/public"));
         app.use(bodyParser.json());
-        // app.use(cookieParser("abcdef-12345"));
 
         app.use("/api", router);
 

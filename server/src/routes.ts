@@ -1,18 +1,24 @@
 import * as express from "express";
 import { Message } from "../../types";
 import { MessageModel, UserModel } from "./db/model";
+import { getHashedPassword, generateAuthToken } from "./utils";
 
 export const router = express.Router();
 
 router.get("/user", async (req, resp) => {
     try {
+        const { username, password } = req.query;
+
+        const hashedPassword = getHashedPassword(password);
+
         const user = await UserModel.find({
-            username: req.query.username,
-            password: req.query.password,
+            username,
+            password: hashedPassword,
         });
 
         if (user.length) {
-            resp.status(200);
+            const authToken = generateAuthToken();
+            resp.cookie("AuthToken", authToken).status(200);
         } else {
             resp.status(401);
             // resp.cookie("auth_token", "XXXXXXXX");
@@ -27,9 +33,12 @@ router.get("/user", async (req, resp) => {
 
 router.post("/user", async (req, resp) => {
     try {
+        const { username, password } = req.body;
+        const hashedPassword = getHashedPassword(password);
+
         const userModel = new UserModel({
-            username: req.body.username,
-            password: req.body.password,
+            username,
+            password: hashedPassword,
         });
 
         const user = await userModel.save();
@@ -48,7 +57,11 @@ router.get("/messages", async (req, resp) => {
     let messages: Message[] = [];
 
     try {
-        messages = await MessageModel.find(req.query);
+        const authToken = req.cookies["AuthToken"];
+        console.debug("Token: ", authToken);
+
+        const { recipient } = req.query;
+        messages = await MessageModel.find({ recipient });
         resp.status(200);
     } catch (error) {
         resp.status(500);
@@ -60,10 +73,12 @@ router.get("/messages", async (req, resp) => {
 
 router.post("/message", async (req, resp) => {
     try {
+        const { recipient, sender, message } = req.body;
+
         const messageModel = new MessageModel({
-            recipient: req.body.recipient,
-            sender: req.body.sender,
-            message: req.body.message,
+            recipient,
+            sender,
+            message,
         });
 
         const user = await messageModel.save();

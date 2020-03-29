@@ -19,7 +19,7 @@ export function Messages(props: { username: string }) {
     const [openNewMessage, setOpenNewMessage] = React.useState(false);
 
     React.useEffect(() => {
-        async function getMessages() {
+        const getMessages = async () => {
             try {
                 const response = await axios.get<Message[]>(apiUrl + "/messages", {
                     params: { recipient: props.username },
@@ -28,13 +28,11 @@ export function Messages(props: { username: string }) {
             } catch (error) {
                 console.log("Error in getMessages: ", error);
             }
-        }
+        };
         getMessages();
     }, []);
 
-    function createNewMessage() {
-        setOpenNewMessage(true);
-    }
+    const createNewMessage = () => setOpenNewMessage(true);
 
     return (
         <React.Fragment>

@@ -8,8 +8,9 @@ import * as React from "react";
 export function NewMessage(props: { open: boolean; username: string }) {
     const [message, setMessage] = React.useState("");
     const [recipient, setRecipient] = React.useState("");
+    const [isOpen, setIsOpen] = React.useState(props.open);
 
-    async function sendMessage(event: React.FormEvent<HTMLFormElement>) {
+    const sendMessage = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         try {
@@ -21,17 +22,20 @@ export function NewMessage(props: { open: boolean; username: string }) {
             console.log("Response: ", resp);
 
             if (resp.status == 200) {
-                alert("TEST");
+                setIsOpen(false);
             } else {
                 throw new Error("Respone status: " + resp.status);
             }
         } catch (error) {
-            console.log("Error in NewMessage is occured:\n", error);
+            console.log("Error in sendMessage:\n", error);
         }
-    }
+    };
+    const handleClose = () => setIsOpen(false);
+
+    console.log("isOpen:", isOpen);
 
     return (
-        <Dialog open={props.open}>
+        <Dialog open={isOpen} onClose={handleClose}>
             <DialogTitle id="simple-dialog-title">New message</DialogTitle>
             <form noValidate autoComplete="off" onSubmit={sendMessage}>
                 <TextField

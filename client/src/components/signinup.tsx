@@ -17,6 +17,7 @@ export function SignUpSignIn(props: { action: string }) {
                 id="username"
                 label="Username"
                 variant="outlined"
+                autoFocus
                 onChange={e => setUsername(e.target.value)}
             />
             <TextField
