@@ -18,10 +18,13 @@ router.get("/user", async (req, resp) => {
 
         if (user.length) {
             const authToken = generateAuthToken();
-            resp.cookie("AuthToken", authToken).status(200);
+            resp.cookie("AuthToken", authToken, {
+                maxAge: 1000 * 60 * 15,
+                httpOnly: true,
+                signed: true,
+            }).status(200);
         } else {
             resp.status(401);
-            // resp.cookie("auth_token", "XXXXXXXX");
         }
     } catch (error) {
         resp.status(500);

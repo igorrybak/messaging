@@ -5,10 +5,9 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import axios from "axios";
 import * as React from "react";
 
-export function NewMessage(props: { open: boolean; username: string }) {
+export function NewMessage(props: { isOpen: boolean; setIsOpen: (open: boolean) => void; username: string }) {
     const [message, setMessage] = React.useState("");
     const [recipient, setRecipient] = React.useState("");
-    const [isOpen, setIsOpen] = React.useState(props.open);
 
     const sendMessage = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -22,7 +21,7 @@ export function NewMessage(props: { open: boolean; username: string }) {
             console.log("Response: ", resp);
 
             if (resp.status == 200) {
-                setIsOpen(false);
+                props.setIsOpen(false);
             } else {
                 throw new Error("Respone status: " + resp.status);
             }
@@ -30,12 +29,11 @@ export function NewMessage(props: { open: boolean; username: string }) {
             console.log("Error in sendMessage:\n", error);
         }
     };
-    const handleClose = () => setIsOpen(false);
 
-    console.log("isOpen:", isOpen);
+    const handleClose = () => props.setIsOpen(false);
 
     return (
-        <Dialog open={isOpen} onClose={handleClose}>
+        <Dialog open={props.isOpen} onClose={handleClose}>
             <DialogTitle id="simple-dialog-title">New message</DialogTitle>
             <form noValidate autoComplete="off" onSubmit={sendMessage}>
                 <TextField
