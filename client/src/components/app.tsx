@@ -1,18 +1,34 @@
-import * as React from "react";
-import { SignUpSignIn } from "./signinup";
-import { render } from "react-dom";
 import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
+import * as React from "react";
+import { render } from "react-dom";
+import { SignUpSignIn } from "./signinup";
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        "& > *": {
+            margin: theme.spacing(1),
+        },
+    },
+}));
 
 export const App = () => {
+    const classes = useStyles();
+
     return (
-        <React.Fragment>
+        <div className={classes.root}>
             <Button key="signIn" variant="contained" color="primary" onClick={() => logInSignUp("signIn")}>
                 Sign in
             </Button>
-            <Button key="createAccount" variant="contained" color="secondary" onClick={() => logInSignUp("createAccount")}>
+            <Button
+                key="createAccount"
+                variant="contained"
+                color="secondary"
+                onClick={() => logInSignUp("createAccount")}
+            >
                 Create account
             </Button>
-        </React.Fragment>
+        </div>
     );
 
     function logInSignUp(action: string) {

@@ -1,17 +1,29 @@
 import { apiUrl } from "@/config";
 import { Button, TextField } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import * as React from "react";
 import { render } from "react-dom";
 import { Messages } from "./messages";
 
+const useStyles = makeStyles(theme => ({
+    root: {
+        "& > *": {
+            margin: theme.spacing(1),
+            width: "25ch",
+        },
+    },
+}));
+
 export function SignUpSignIn(props: { action: string }) {
+    const classes = useStyles();
+
     const buttonText = props.action === "signIn" ? "Sign in" : "Create account";
     const [username, setUsername] = React.useState("");
     const [password, setPassword] = React.useState("");
 
     return (
-        <form noValidate autoComplete="off" onSubmit={sendUserData}>
+        <form noValidate className={classes.root} autoComplete="off" onSubmit={sendUserData}>
             <TextField
                 required
                 id="username"

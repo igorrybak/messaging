@@ -4,7 +4,6 @@ import * as express from "express";
 import { PORT, HOST_NAME } from "./config";
 import { config } from "dotenv";
 import * as cookieParser from "cookie-parser";
-import * as cookieSession from "cookie-session";
 import * as morgan from "morgan";
 
 config();
@@ -16,12 +15,6 @@ import { router } from "./routes";
         const app = express();
 
         app.use(cookieParser("secret"));
-        app.use(
-            cookieSession({
-                name: "session",
-                keys: ["key1", "key2"],
-            }),
-        );
         app.use(morgan("dev"));
         app.use(cors());
         app.use(express.static(process.cwd() + "/public"));

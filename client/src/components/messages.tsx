@@ -6,11 +6,16 @@ import * as React from "react";
 import { Message, User } from "../../../types";
 import { NewMessage } from "./sendmessage";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
+    root: {
+        "& > *": {
+            margin: theme.spacing(1),
+        },
+    },
     table: {
         minWidth: 650,
     },
-});
+}));
 
 export function Messages(props: { username: string }) {
     const classes = useStyles();
@@ -35,12 +40,13 @@ export function Messages(props: { username: string }) {
     const createNewMessage = () => setOpenNewMessage(true);
 
     return (
-        <React.Fragment>
+        <div className={classes.root}>
             <NewMessage isOpen={openNewMessage} setIsOpen={setOpenNewMessage} username={props.username} />
-            
+
             <Button variant="contained" color="primary" onClick={createNewMessage}>
                 New message
             </Button>
+
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="messages table">
                     <TableHead>
@@ -59,6 +65,6 @@ export function Messages(props: { username: string }) {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </React.Fragment>
+        </div>
     );
 }
